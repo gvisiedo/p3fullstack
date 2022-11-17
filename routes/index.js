@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var requestHandler = require("../src/controllers/requestHandlers")
+var requestHandler = require("../controllers/requestHandlers")
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
