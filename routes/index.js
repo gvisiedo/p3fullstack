@@ -1,0 +1,16 @@
+var express = require('express');
+var router = express.Router();
+var requestHandler = require("../src/controllers/requestHandlers")
+
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.get('/', requestHandler.init);
+router.get('/register', requestHandler.register);
+router.post('/validated-register', requestHandler.validatedRegister);
+router.post('/login', requestHandler.login);
+router.get('/game-app', requestHandler.gameApp);
+
+module.exports = router;
