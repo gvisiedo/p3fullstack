@@ -1,0 +1,577 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Console.log play Games</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name=”viewport” content=”width = device-width, initial-scale=1.0">
+    <style>
+        #wrapper-main {
+            position: absolute;
+            width: 100%;
+            height: 1200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            background-color: rgb(174, 253, 140);
+            font-family: 'Century Gothic', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+        }
+
+        .wrapper-header {
+            display: flex;
+            justify-content: flex-start;
+            width: 100%;
+            height: 90px;
+            align-items: center;
+            flex-direction: column;
+            padding: 30px 0px 0px 0px;
+            background-color: #1a1a1a;
+            box-shadow: rgb(35, 37, 39) 10px 5px 10px;
+        }
+
+        .wrapper-log-out {
+            display: flex;
+            justify-content: flex-end;
+            width: 90%;
+            cursor: pointer;
+
+        }
+
+        #log-out {
+            color: white;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+           
+        }
+
+        .wrapper-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .wrapper-info {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffe6
+        }
+
+        .wrapper-user {
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0px 20px 0px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 550;
+            line-height: 60px;
+        }
+
+        #avatarChoose {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            border: 2px solid #1a1a1a;
+
+        }
+
+        #newId {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            border: 2px solid #1a1a1a;
+
+        }
+
+        #user-name {
+            text-transform: capitalize;
+            font-size: 20px;
+        }
+
+        .wrapper-helper {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 17px;
+            padding: 0px 0px 20px 0px;
+        }
+
+        .wrapper-rooms {
+            width: 100%;
+            display: flex;
+            justify-content: center
+        }
+
+        .container-rooms {
+            width: 90%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px 0px 30px 0px;
+        }
+        .wrapper-container{
+            background-color: rebeccapurple;
+            width: 20%;
+            
+            background-color: rgb(58, 140, 255);
+            border-radius: 10px;
+            box-shadow: rgb(51, 109, 190) 10px 5px 10px;
+        }
+        .wrapper-ocupation{
+            background-color: #ffffe6;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px 10px 0px 0px;
+        }
+
+        .room {
+            background-color: rgb(58, 140, 255);
+            height: 150px;
+            border-radius: 0px 0px 10px 10px;
+            box-shadow: rgb(51, 109, 190) 10px 5px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #wrapper-selector {
+            display: none;
+            height: 250px;
+            justify-content: center;
+        }
+
+        #avatar-selector {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 0px 15px 0px 15px;
+            background-color: rgb(35, 20, 113);
+            border-radius: 10px;
+
+        }
+
+        .avatar-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .avatar-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            border: solid rgb(222, 93, 8);
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+        }
+    </style>
+
+    <!--
+        JQuery
+        library and scripts
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#containerRooms").hide().fadeIn(3000);
+            $("#wrapper-main").hide().fadeIn(1000);
+        });
+
+        /**
+        * Change the color of a selected room from blue to red, the unselected ones will be painted again in blue.
+        * @param  {Number} roomNumber Number of the selected room.
+        */
+        function roomSelected(roomNumber) {
+
+            $("#room1").css("background-color", "rgb(58, 140, 255)")
+            $("#room2").css("background-color", "rgb(58, 140, 255)")
+            $("#room3").css("background-color", "rgb(58, 140, 255)")
+
+            switch (roomNumber) {
+
+                case "room1":
+
+                    $("#room1").css("background-color", "red")
+
+                    break;
+                case "room2":
+
+                    $("#room2").css("background-color", "red")
+
+                    break;
+                case "room3":
+
+                    $("#room3").css("background-color", "red")
+
+                    break;
+                default:
+                // code block
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div id="wrapper-main">
+        <div class="wrapper-header">
+            <div class="wrapper-log-out">
+                <span id="log-out">Log out
+                    <i class="fa-solid fa-right-from-bracket" style="color: white; font-size: 30px; margin-left: 8px;"></i>
+                </span>
+               
+            </div>
+        </div>
+        <div class="wrapper-content">
+            <div class="wrapper-info">
+                <div class="wrapper-user">
+                    <div id="avatar-picker" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <span id="user-name"></span>
+                        
+                        <img draggable="true" ondragstart="drag(event)" id="avatarChoose" src="">
+                        <i id="avatarChange" class="fas fa-caret-square-down"></i>
+                      
+                    </div>
+
+                    <div id="wrapper-selector">
+                        <div id="avatar-selector">
+                            <div class="avatar-row">
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-1" src="/assets/avatars?1">
+                                </div>
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-2" src="/assets/avatars?2">
+                                </div>
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-3" src="/assets/avatars?3">
+                                </div>
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-4" src="/assets/avatars?4">
+                                </div>
+                            </div>
+                            <div class="avatar-row">
+
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-5" src="/assets/avatars?5">
+                                </div>
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-6" src="/assets/avatars?6">
+                                </div>
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-7" src="/assets/avatars?7">
+                                </div>
+                                <div class="avatar-item">
+                                    <img class="avatar" id="item-8" src="/assets/avatars?8">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h1>Welcome to console.log(play) game</h1>
+                </div>
+                <div class="wrapper-helper">
+                    <spam> To start playing choose a room.</spam>
+                    <spam>In each room you can play up to two players maximum.</spam>
+                    <spam>Drag an drop your avatar to choose one room.</spam>
+                    <spam><i class="fas fa-lg fa-user-friends"></i>Room is full <i class="fas fa-lg fa-user-alt"></i>One
+                        person in the room <i class="fas fa-lg fa-user-alt-slash"></i>Room is empty</spam>
+                </div>
+            </div>
+            <div class="wrapper-rooms">
+                <div class="container-rooms" id="containerRooms">
+                    <div class="wrapper-container">
+                        <div class="wrapper-ocupation">
+                            <i style="" id="oroom1"></i>
+                        </div>
+                        <div id="room1" class="room" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    <div class="wrapper-container">
+                        <div class="wrapper-ocupation">
+                            <i style="" id="oroom2"></i>
+                        </div>
+                        <div id="room2" class="room" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    <div class="wrapper-container">
+                        <div class="wrapper-ocupation">
+                            <i style="" id="oroom3"></i>
+                        </div>
+                        <div id="room3" class="room" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:rgb(174, 253, 140)">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Console.log(play)</h4>
+                </div>
+                <div class="modal-body" style="background-color:#ffffe6">
+                    <p id="alert-text"></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+
+        //MODAL POPUP
+        $('#myModal').on('click', 'button.close', function (eventObject) {
+            $('#myModal').modal('hide');
+        });
+
+
+        //DATA LOCALSTORAGE
+        var user = JSON.parse(localStorage.getItem('User'));
+        var name = "Renata"
+        var avatar = document.getElementById("avatarChoose");
+        var userName = document.getElementById("user-name");
+        userName.innerHTML = "Hi" + ' ' + user.name.toLowerCase();
+        avatar.src = user.avatar;
+
+        //LOG OUT
+        var logOut = document.getElementById("log-out");
+        logOut.addEventListener("click", function () {
+            fetch("/logOut?user=" + user.username).then(response => {
+                if (response.ok) {
+                    var userLogOut = {
+                        'name': user.name,
+                        'username': user.username,
+                        'isLogged': false,
+                        'avatar': user.avatar,
+                        'room1': false,
+                        'room2': false,
+                        'room3': false
+                    }
+                    localStorage.setItem('User', JSON.stringify(userLogOut))
+                    window.location.assign(response.url)
+                }
+            })
+        })
+
+        //DRAG AND DROP
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+        /**
+        * Manage the actions triggered by dropping the avatar into a room. First checks if the room is full and alert the user, if the room has space then the room is selected.
+        * @param  {Event} ev event that trigger the function
+        */
+        function drop(ev) {
+            var data = ev.dataTransfer.getData("text");
+            if (ev.target.id != "user-name") {
+                fetch('/ocupation?room=' + ev.target.id + '&user=' + user.username).then(response => {
+                    if (response.ok) {
+                        document.getElementById("alert-text").innerHTML = 'Welcome to the room';
+                        $("#myModal").modal("show");
+                        var onRoom = ev.target.id;
+                        user[onRoom] = true;
+                        localStorage.setItem('User', JSON.stringify(user));
+                        ev.preventDefault();
+                        var nodeCopy = document.getElementById(data).cloneNode(true);
+                        nodeCopy.id = "newId"
+                        ev.target.appendChild(nodeCopy);
+                        roomSelected(ev.target.id);
+                        document.getElementById(ev.target.id).innerHTML = document.getElementById(ev.target.id).innerHTML + '<input class="btn btn-primary" type="button" value="Get out" onClick=getOutRoom("' + ev.target.id + '","' + user.username + '") />';
+                    }
+                    else {
+                        document.getElementById("alert-text").innerHTML = 'Room is full. Try another one';
+                        $("#myModal").modal("show");
+                    }
+                })
+            }
+            else {
+                var nodeCopy = document.getElementById(data).cloneNode(true);
+                nodeCopy.id = "newId"
+                ev.target.appendChild(nodeCopy);
+            }
+        }
+
+        /**
+        * Manage the manages the exit of the user's game room . Delete the room selected by the user.
+        * @param  {Room} room room selected by the user
+        * @param  {User} user user logged in
+        */
+        function getOutRoom(room, userName) {
+            fetch('/disconnect?room=' + room + '&user=' + userName).then(response => {
+                if (response.ok) {
+                    document.getElementById("alert-text").innerHTML = 'Correctly disconnected';
+                    $("#myModal").modal("show");
+                    user[room] = false;
+                    localStorage.setItem('User', JSON.stringify(user));
+                    document.getElementById(room).innerHTML = '<i id="o' + room + '"></i>';
+                    document.getElementById(room).style.backgroundColor = 'rgb(58, 140, 255)';
+                }
+                else {
+                    document.getElementById("alert-text").innerHTML = 'Error leaving the room';
+                    $("#myModal").modal("show");
+                }
+            })
+        }
+
+        //CHOSE AVAVATAR
+
+        var avatarPicker = document.getElementById("avatarChange");
+        avatarPicker.addEventListener("click", function (event) {
+            document.getElementById('wrapper-selector').style.display = 'flex';
+            document.getElementById('wrapper-selector').style.visibility = 'visible';
+
+                var avatar1 = document.getElementById("item-1");
+                avatar1.addEventListener("click", function () {
+                    avatarChoose.src = avatar1.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user))
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+
+                var avatar2 = document.getElementById("item-2");
+                avatar2.addEventListener("click", function () {
+                    avatarChoose.src = avatar2.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user))
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+
+                var avatar3 = document.getElementById("item-3");
+                avatar3.addEventListener("click", function () {
+                    avatarChoose.src = avatar3.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user));
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+
+                var avatar4 = document.getElementById("item-4");
+                avatar4.addEventListener("click", function () {
+                    avatarChoose.src = avatar4.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user));
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+
+                var avatar5 = document.getElementById("item-5");
+                avatar5.addEventListener("click", function () {
+                    avatarChoose.src = avatar5.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user));
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+
+                var avatar6 = document.getElementById("item-6");
+                avatar6.addEventListener("click", function () {
+                    avatarChoose.src = avatar6.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user));
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+
+                var avatar7 = document.getElementById("item-7");
+                avatar7.addEventListener("click", function () {
+                    avatarChoose.src = avatar7.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user));
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+
+                var avatar8 = document.getElementById("item-8");
+                avatar8.addEventListener("click", function () {
+                    avatarChoose.src = avatar8.src;
+                    document.getElementById('wrapper-selector').style.display = 'none';
+                    user.avatar = avatarChoose.src
+                    localStorage.setItem('User', JSON.stringify(user));
+                    document.getElementById('wrapper-selector').style.visibility = 'hidden';
+                })
+        })
+
+        /**
+        * Check if a room is full or not.
+        * @param  {Number} room Number of the checked room.
+        */
+        function checkOcupation(room) {
+            fetch('/ocupationcheck?room=' + room + '&user=' + user.username).then(response => {
+                if (response.status == 200) {
+                    document.getElementById('o' + room).classList.add("fas");
+                    document.getElementById('o' + room).classList.add("fa-user-alt-slash");
+                    document.getElementById('o' + room).classList.remove("fa-user-alt");
+                    document.getElementById('o' + room).classList.remove("fa-user-friends");
+                    document.getElementById('o' + room).classList.add("fa-2x");
+
+                }
+                else if (response.status == 201) {
+                    document.getElementById('o' + room).classList.add("fas");
+                    document.getElementById('o' + room).classList.add("fa-user-alt");
+                    document.getElementById('o' + room).classList.remove("fa-user-alt-slash");
+                    document.getElementById('o' + room).classList.remove("fa-user-friends");
+                    document.getElementById('o' + room).classList.add("fa-2x");
+                }
+                else if (response.status == 403) {
+                    document.getElementById('o' + room).classList.add("fas");
+                    document.getElementById('o' + room).classList.add("fa-user-friends");
+                    document.getElementById('o' + room).classList.remove("fa-user-alt");
+                    document.getElementById('o' + room).classList.remove("fa-user-alt-slash");
+                    document.getElementById('o' + room).classList.add("fa-2x");
+
+                }
+            })
+        }
+        setInterval(function () { checkOcupation("room1", user.username) }, 1000);
+        setInterval(function () { checkOcupation("room2", user.username) }, 1000);
+        setInterval(function () { checkOcupation("room3", user.username) }, 1000);
+
+
+    </script>
+
+</body>
+
+</html>
